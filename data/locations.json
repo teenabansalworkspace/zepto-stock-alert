@@ -1,0 +1,19 @@
+[
+  {"id": "dl-cp",        "state": "Delhi",     "label": "Delhi - Connaught Place",    "query": "110001"},
+  {"id": "dl-saket",     "state": "Delhi",     "label": "Delhi - Saket/Malviya Nagar","query": "110017"},
+  {"id": "dl-rohini",    "state": "Delhi",     "label": "Delhi - Rohini",             "query": "110085"},
+  {"id": "dl-laxmi",     "state": "Delhi",     "label": "Delhi - Laxmi Nagar",        "query": "110092"},
+  {"id": "dl-uttam",     "state": "Delhi",     "label": "Delhi - Uttam Nagar",        "query": "110059"},
+  {"id": "hr-ggn",       "state": "Haryana",   "label": "Gurugram - 122001",          "query": "122001"},
+  {"id": "hr-ggn-sohna", "state": "Haryana",   "label": "Gurugram - Sohna Road",      "query": "122018"},
+  {"id": "hr-fbd",       "state": "Haryana",   "label": "Faridabad - 121001",         "query": "121001"},
+  {"id": "up-noida",     "state": "UP",        "label": "Noida - 201301",             "query": "201301"},
+  {"id": "up-noida62",   "state": "UP",        "label": "Noida - Sector 62",          "query": "201309"},
+  {"id": "up-gnoida",    "state": "UP",        "label": "Greater Noida - 201310",     "query": "201310"},
+  {"id": "up-gzb",       "state": "UP",        "label": "Ghaziabad - 201001",         "query": "201001"},
+  {"id": "up-indirapuram","state": "UP",       "label": "Ghaziabad - Indirapuram",    "query": "201014"},
+  {"id": "ka-koramangala","state": "Karnataka","label": "Bengaluru - Koramangala",    "query": "560034"},
+  {"id": "ka-indiranagar","state": "Karnataka","label": "Bengaluru - Indiranagar",    "query": "560038"},
+  {"id": "ka-whitefield", "state": "Karnataka","label": "Bengaluru - Whitefield",     "query": "560066"},
+  {"id": "ka-hsr",        "state": "Karnataka","label": "Bengaluru - HSR Layout",     "query": "560102"}
+]
