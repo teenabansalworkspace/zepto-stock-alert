@@ -1,0 +1,60 @@
+name: Zepto stock check
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"   # every 20 minutes (GitHub may start it a few minutes late)
+  workflow_dispatch: {}       # "Run workflow" button for a manual run
+
+concurrency:
+  group: zepto-stock-check
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Create virtual environment and install
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --quiet -r requirements.txt
+          .venv/bin/python -m playwright install --with-deps chromium
+          sudo apt-get install -y -qq xvfb > /dev/null
+
+      - name: Check Zepto and send alerts
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          ADMIN_IDS: ${{ secrets.ADMIN_IDS }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          STATE_KEY: ${{ secrets.STATE_KEY }}
+        # xvfb-run gives the server a virtual screen, so the normal (non-headless) browser can run there
+        run: xvfb-run -a .venv/bin/python main.py once
+
+      - name: Save data back to the repo
+        if: always()
+        run: |
+          git config user.name "stock-bot"
+          git config user.email "stock-bot@users.noreply.github.com"
+          git add data/state.enc 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "no data change"
+          else
+            git commit -m "update data [skip ci]" --quiet
+            git pull --rebase --quiet || true
+            git push --quiet
+          fi
